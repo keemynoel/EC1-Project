@@ -33,7 +33,7 @@ namespace EBANKING
                 da.Fill(dt);
                 if (dt.Rows.Count > 0)
                 {
-                    Response.Redirect("~/MyAccount.aspx");
+                    Response.Redirect("MyAccount.aspx");
                 }
                 else
                 {

@@ -23,8 +23,8 @@ namespace EBANKING
 
         protected void btnRegister_Click(object sender, EventArgs e)
         {
-            //Session["EMAIL"] = txtemail.Text;
-            //Session["HOLDERPWD"] = txtpassword.Text;
+            Session["EMAIL"] = txtemail.Text;
+            Session["HOLDERPWD"] = txtpassword.Text;
             SqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "Insert into ACCOUNTHOLDERS values('" + txtfname.Text + "', '" + txtlname.Text + "', '" + txtemail.Text + "', '" + txtpassword.Text + "', '" + txtaccnum.Text + "')";
@@ -35,6 +35,9 @@ namespace EBANKING
             txtemail.Text = "";
             txtpassword.Text = "";
             txtaccnum.Text = "";
+
+            ClientScript.RegisterStartupScript(Page.GetType(), "validation", "<script language='javascript'>alert('Registration Successful')</script>");
+
 
             Response.Redirect("MyAccount.aspx");
         }

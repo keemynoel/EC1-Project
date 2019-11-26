@@ -31,6 +31,18 @@
         #info{
             
         }
+        .Button{
+            color: #fff !important;
+            background-color: red;
+            padding: 20px;
+            border-radius: 50px;
+            display: inline-block;
+            transition: all 0.4s ease 0s;
+            cursor: pointer;
+			width: 200px;
+			height: 12px;
+            
+        }
 
     </style>
 </asp:Content>
@@ -40,9 +52,9 @@
         <li class="navbarl"><a href="Paybills.aspx" target="_parent">Pay your Bills </a></li>
         <li class="navbarl"><a href="Accountbal.aspx" target="_parent">View Account Balance</a></li>
     </ul>
-    <div id="info">
-        <p align="center">Welcome<asp:Label ID="lblusername" runat="server" Text=""></asp:Label>To Your Account Profile</p>
-        <table cellpadding="5" align="center" cellspacing="3" border="1" height="200px" width="700px">
+    <div id="info" align="center">
+        <p >Welcome &nbsp <asp:Label ID="lblusername" runat="server" Text=""> &nbsp </asp:Label>To Your Account Profile</p>
+        <table cellpadding="5" cellspacing="3" border="1" height="200px" width="700px">
             <tr>
                 <td colspan="6">
                     <asp:Label ID="lblaccnum" runat="server" Text="Account Number"></asp:Label>
@@ -70,6 +82,7 @@
                 </td>
             </tr>
         </table>
+        <asp:Button ID="btnlogout" runat="server" Text="Logout In" CssClass="Button" OnClick="btnlogout_Click" />
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:myConnection %>" ProviderName="<%$ ConnectionStrings:myConnection.ProviderName %>" SelectCommand="SELECT [HOLDERID], [FIRSTNAME], [LASTNAME], [EMAIL], [HOLDERPWD], [ACCOUNT_NUMBER] FROM [ACCOUNTHOLDERS] ORDER BY [FIRSTNAME]"></asp:SqlDataSource>
     </div>
 </asp:Content>

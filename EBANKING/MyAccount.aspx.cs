@@ -17,9 +17,10 @@ namespace EBANKING
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session ["Login"] == null)
+            if (Session["Email"] == null)
             {
-                Response.Redirect("Login.aspx");
+                ClientScript.RegisterStartupScript(Page.GetType(), "validation", "<script language='javascript'>alert('Please Login first')</script>");
+
             }
             else
             {
@@ -30,22 +31,24 @@ namespace EBANKING
                 txtemail.Text = holders.EMAIL;
                 txtpassword.Text = holders.HOLDERPWD;
                 lblusername.Text = holders.FIRSTNAME;
-
             }
+            
 
         }
 
         private Holders GetHolders()
         {
             DataView itemtable = (DataView)SqlDataSource1.Select(DataSourceSelectArguments.Empty);
-            itemtable.RowFilter = "EMAIL = '" +Session["Login"]+ "'";
+            itemtable.RowFilter = "EMAIL = '" + Session["EMAIL"] + "'";
             DataRowView row = (DataRowView)itemtable[0];
-            Holders o = new Holders();
-            o.FIRSTNAME = row["FIRSTNAME"].ToString();
-            o.LASTNAME = row["LASTNAME"].ToString();
-            o.EMAIL = row["EMAIL"].ToString();
-            o.HOLDERPWD = row["HOLDERPWD"].ToString();
-            o.ACCOUNT_NUMBER = (int)row["ACCOUNT_NUMBER"];
+            Holders o = new Holders
+            {
+                FIRSTNAME = row["FIRSTNAME"].ToString(),
+                LASTNAME = row["LASTNAME"].ToString(),
+                EMAIL = row["EMAIL"].ToString(),
+                HOLDERPWD = row["HOLDERPWD"].ToString(),
+                ACCOUNT_NUMBER = (int)row["ACCOUNT_NUMBER"]
+            };
             return o;
 
         }
@@ -58,6 +61,12 @@ namespace EBANKING
             public string HOLDERPWD { get; set; }
             public int ACCOUNT_NUMBER { get; set; }
 
+        }
+
+        protected void btnlogout_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Response.Redirect("Login.aspx");
         }
     }
 
